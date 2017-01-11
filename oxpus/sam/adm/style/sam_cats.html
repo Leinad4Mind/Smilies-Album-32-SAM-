@@ -1,0 +1,93 @@
+<!-- IF S_CAT_EDIT -->
+
+	<form action="{S_FORM_ACTION}" method="post" id="sam_edit_cat">
+	
+	<fieldset>
+	
+		<legend>{SAM_CAT_MODE}</legend>
+	
+		<dl>
+			<dt><label>{L_SAM_CAT}</label></dt>
+			<dd><input type="text" name="cat_title" size="40" maxlength="255" value="{CAT_TITLE}" /></dd>
+		</dl>
+		<dl>
+			<dt><label>{L_SAM_CAT_PARENT}</label></dt>
+			<dd><select name="cat_parent"><option value="0">{L_SAM_CAT_ROOT}</option>{CAT_PARENT}</select></dd>
+		</dl>
+	
+	</fieldset>
+
+	<fieldset>
+
+		<dl>
+			<dt><label>{L_SAM_CAT_TEXT}</label></dt>
+			<dd><textarea name="cat_text" cols="40" rows="5" class="inputbox autowidth">{CAT_TEXT}</textarea></dd>
+		</dl>
+
+	</fieldset>
+
+	<fieldset class="quick">
+
+			<input type="submit" name="submit" value="{L_SUBMIT}" class="button1" />
+			<input type="reset" name="reset" value="{L_RESET}" class="button2" />
+			{S_HIDDEN_FIELDS}
+			{S_FORM_TOKEN}
+
+	</fieldset>
+	
+	</form>
+
+<!-- ELSE -->
+
+	<form action="{S_FORM_ACTION}" method="post" id="sam_cat">
+	
+		<table width="100%" cellpadding="3" cellspacing="1" class="table1">
+		<thead>
+		<tr>
+			<th style="width: 90%;">{L_FORUM_CAT}</th>
+			<th style="width: 10%;">{L_ACTION}</th>
+		</tr>
+		</thead>
+		<tbody>
+		<!-- BEGIN categories -->
+		<tr valign="top" class="row<!-- IF categories.S_ROW_COUNT is even -->1<!-- ELSE -->2<!-- ENDIF -->">
+			<td style="width: 90%;"><label>{categories.CAT_TITLE}</label></td>
+			<td style="width: 10%;">
+				<!-- IF categories.S_FIRST_ROW && not categories.S_LAST_ROW -->
+				{ICON_MOVE_UP_DISABLED}
+				<a href="{categories.U_CATEGORY_MOVE_DOWN}">{ICON_MOVE_DOWN}</a>
+				<!-- ELSEIF not categories.S_FIRST_ROW && not categories.S_LAST_ROW-->
+				<a href="{categories.U_CATEGORY_MOVE_UP}">{ICON_MOVE_UP}</a>
+				<a href="{categories.U_CATEGORY_MOVE_DOWN}">{ICON_MOVE_DOWN}</a>
+				<!-- ELSEIF categories.S_LAST_ROW && not categories.S_FIRST_ROW -->
+				<a href="{categories.U_CATEGORY_MOVE_UP}">{ICON_MOVE_UP}</a>
+				{ICON_MOVE_DOWN_DISABLED}
+				<!-- ELSE -->
+				{ICON_MOVE_UP_DISABLED}
+				{ICON_MOVE_DOWN_DISABLED}
+				<!-- ENDIF -->		
+				<a href="{categories.U_CAT_EDIT}">{ICON_EDIT}</a>
+				<!-- IF categories.U_CAT_DELETE -->
+					<a href="{categories.U_CAT_DELETE}">{ICON_DELETE}</a>
+				<!-- ELSE -->
+					{ICON_DELETE_DISABLED}
+				<!-- ENDIF -->
+			</td>
+		</tr>
+		<!-- END categories -->
+		</tbody>
+		</table>
+		
+		<fieldset class="quick">
+			<input type="hidden" name="action" value="add" />
+			<input type="text" name="cat_title" size="40" maxlength="255" value="" />&nbsp;
+			<input type="submit" name="add_cat" class="button1" value="{L_ADD}" />
+			{S_HIDDEN_FIELDS}
+			{S_FORM_TOKEN}
+		</fieldset>
+	
+	</form>
+
+<!-- ENDIF -->
+
+<br />

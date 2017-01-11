@@ -1,0 +1,83 @@
+<!-- INCLUDE overall_header.html -->
+
+<h2>{L_SAM_TITLE}</h2>
+
+<!-- IF S_SAM_MODCP or U_SAM_ADD -->
+<div>
+
+	<ul class="linklist">
+		<!-- IF S_SAM_MODCP --><li class="leftside"><span>[ <a href="{U_SAM_MODCP}">{L_MCP}</a> ]</span></li><!-- ENDIF -->
+		<!-- IF U_SAM_ADD --><li class="rightside"><span>[ <a href="{U_SAM_ADD}">{L_SAM_ADD}</a> ]</span></li><!-- ENDIF -->
+	</ul>
+
+</div>
+<!-- ENDIF -->
+
+<!-- BEGIN navlinks -->
+	<!-- IF navlinks.S_FIRST_ROW -->
+	<div class="navbar">
+	<!-- ENDIF -->
+		<!-- IF not navlinks.S_FIRST_ROW --> <strong>&#8249;</strong> <!-- ENDIF --><a href="{navlinks.U_VIEW_FORUM}" class="topictitle"><strong>{navlinks.FORUM_NAME}</strong></a>
+	<!-- IF navlinks.S_LAST_ROW -->
+	</div>
+	<!-- ENDIF -->
+<!-- END navlinks -->
+
+<div style="min-width: 20%; float: left;" class="navbar">
+
+	<ul class="topiclist">
+
+		<!-- BEGIN sam_cats -->
+		<li>
+			<dl>
+				<dd>&nbsp;&nbsp;{sam_cats.CAT_SIGN}<a href="{sam_cats.U_CAT}" class="forumtitle"><!-- IF sam_cats.CAT_SEL --><span style="color: #ff0000;"><!-- ENDIF -->{sam_cats.CAT_TITLE}<!-- IF sam_cats.CAT_SEL --></span><!-- ENDIF --></a>&nbsp;<strong>({sam_cats.CAT_COUNT})</strong></dd>
+			</dl>
+		</li>
+		<!-- END sam_cats -->
+
+	</ul>
+
+</div>
+	
+<div style="min-width: 75%; max-width: 80%; float: right;" class="panel">
+
+<!-- IF DISPLAY_TEXT --><div class="rules">{DISPLAY_TEXT}</div><!-- ENDIF -->
+<!-- IF S_NO_SMILIES -->
+	<strong>{L_SAM_EMPTY_PAGE}</strong>
+<!-- ELSE -->
+	<ul class="topiclist">
+		<li>
+			<!-- BEGIN smilies_data -->
+			<!-- IF smilies_data.S_FIRST_ROW -->
+			<dl class="panel bg2">
+			<!-- ENDIF -->
+				<dd style="text-align: center;">
+					&nbsp;<span class="gen"><strong>{smilies_data.TITLE}</strong></span>&nbsp;
+					<!-- IF smilies_data.U_CAT --><br />&nbsp;<a href="{smilies_data.U_CAT}" class="small">{smilies_data.CAT_TITLE}</a>&nbsp;<!-- ENDIF --><hr />
+					&nbsp;{smilies_data.RATING}<br /><br />
+					&nbsp;<a href="{smilies_data.U_SMILIE}" onclick="window.open('{smilies_data.U_SMILIE}', '_blank', 'height=400,width=300,resizable=no,menubar=no,toolbar=no'); return false;"><img src="{smilies_data.FILENAME}" title="{smilies_data.TITLE}" alt="{smilies_data.TITLE}" /></a>&nbsp;
+				</dd>
+			<!-- IF smilies_data.COLUMN == MAX_COLUMNS or smilies_data.S_LAST_ROW -->
+			</dl>
+			<!-- IF not smilies_data.S_LAST_ROW --><dl class="panel bg<!-- IF smilies_data.S_ROW_COUNT is even -->3<!-- ELSE -->2<!-- ENDIF -->"><!-- ENDIF -->
+			<!-- ENDIF -->
+			<!-- END smilies_data -->
+		</li>
+	</ul>
+	
+<!-- ENDIF -->
+
+</div>
+
+<!-- IF .pagination or TOTAL_SMILIES -->
+	<div class="pagination">
+		{TOTAL_SMILIES}
+		<!-- IF .pagination -->
+			<!-- INCLUDE pagination.html -->
+		<!-- ELSE -->
+			&bull; {PAGE_NUMBER}
+		<!-- ENDIF -->
+	</div>
+<!-- ENDIF -->
+
+<!-- INCLUDE sam_footer.html -->

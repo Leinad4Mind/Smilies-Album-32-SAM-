@@ -1,0 +1,41 @@
+<!-- INCLUDE overall_header.html -->
+
+<h2>{L_SAM_TITLE}</h2>
+
+<br />
+
+<form action="{S_FORM_ACTION}" method="post" {ENCTYPE} id="sam_edit">
+
+<div class="panel">
+
+	<h3><!-- IF SAM_ADD_MODE -->{L_SAM_ADD}<!-- ELSE -->{L_EDIT}<!-- ENDIF --></h3>
+
+	<fieldset>
+	
+	<dl>
+		<dt><label>{L_SAM_FILE_TITLE}</label></dt>
+		<dd><input type="text" name="sam_title" size="40" maxlength="255" value="{SAM_TITLE}" class="inputbox autowidth" /></dd>
+	</dl>
+	<dl>
+		<dt><label>{L_SAM_FILE}</label></dt>
+		<dd><input type="file" name="sam_filename" size="40" maxlength="255" value="" class="inputbox" /><br /><span class="small">{MAX_UPLOAD_SIZE}</span></dd>
+	</dl>
+	<dl>
+		<dt><label>{L_SAM_CAT}</label></dt>
+		<dd><select name="cat_id">{SAM_CAT}</select></dd>
+	</dl>
+
+	</fieldset>
+	
+	<fieldset class="submit-buttons">
+		<input type="submit" name="submit" value="{L_SUBMIT}" class="button1" />&nbsp;&nbsp;<input type="reset" name="reset" value="{L_RESET}" class="button2" />
+	</fieldset>
+	
+</div>
+
+
+<div>{S_FORM_TOKEN}{S_HIDDEN_FIELDS}</div>
+
+</form>
+
+<!-- INCLUDE sam_footer.html -->

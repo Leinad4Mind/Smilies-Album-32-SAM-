@@ -1,0 +1,60 @@
+<!-- INCLUDE simple_header.html -->
+
+<script language="javascript" type="text/javascript">
+<!--
+function insert_smilie(text)
+{
+	if (opener.document.forms.qr_postform != null)
+	{
+		opener.document.forms.qr_postform.message.value = ( opener.document.forms.qr_postform.message.value.length && opener.document.forms.qr_postform.message.type == "textarea" ) ? opener.document.forms.qr_postform.message.value + "\n" + text : text;
+	}
+	if (opener.document.forms['postform'] != null)
+	{
+		opener.document.forms['postform'].message.value = ( opener.document.forms['postform'].message.value.length && opener.document.forms['postform'].message.type == "textarea" ) ? opener.document.forms['postform'].message.value + "\n" + text : text;
+	}
+}
+//-->
+</script>
+
+<h2>{L_SAM_TITLE}</h2>
+
+<br />
+
+<div class="navbar">
+<form action="{U_SAM_POPUP}" method="post">
+<fieldset>
+    <label><strong>{L_SAM_CAT}</strong></label>{S_CAT_SELECT}
+</fieldset>
+</form>
+</div>
+
+<!-- IF S_NO_SMILIES -->
+<strong>{L_SAM_EMPTY_PAGE}</strong>
+<!-- ELSE -->
+<table class="table2">
+<!-- BEGIN smilies_data -->
+	<!-- IF smilies_data.S_FIRST_ROW -->
+	<tr>
+	<!-- ENDIF -->
+		<td>
+			&nbsp;<a style="display: block; margin: 3px; padding: 3px; background-color: #f0f0f0;" href="#" onclick="insert_smilie('{smilies_data.U_SAM_POST}'); return false;" title="{smilies_data.TITLE}"><img src="{smilies_data.FILENAME}" title="{smilies_data.TITLE}" alt="{smilies_data.TITLE}" /></a>&nbsp;
+    	</td>
+	<!-- IF smilies_data.COLUMN == MAX_COLUMNS or smilies_data.S_LAST_ROW -->
+	</tr>
+	<!-- ENDIF -->
+	<!-- END smilies_data -->
+</table>
+<!-- ENDIF -->
+
+<!-- IF .pagination or TOTAL_SMILIES -->
+<div class="pagination">
+	{TOTAL_SMILIES}
+	<!-- IF .pagination -->
+		<!-- INCLUDE pagination.html -->
+	<!-- ELSE -->
+		&bull; {PAGE_NUMBER}
+	<!-- ENDIF -->
+</div>
+<!-- ENDIF -->
+
+<!-- INCLUDE sam_footer.html -->

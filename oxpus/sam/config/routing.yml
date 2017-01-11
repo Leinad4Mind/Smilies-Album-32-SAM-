@@ -1,0 +1,3 @@
+sam_controller:
+    path: /sam/
+    defaults: { _controller: oxpus.sam.controller:handle }

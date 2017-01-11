@@ -1,0 +1,61 @@
+<form id="acp_sam_config" method="post" action="{S_CONFIG_ACTION}">
+
+	<fieldset>
+	
+		<dl>
+			<dt><label>{L_SAM_CONFIG_ACTIVE}</label></dt>
+			<dd><label><input type="radio" class="radio" name="sam_active" value="1" {SAM_ACTIVE_YES} /> {L_YES}</label><label><input type="radio" class="radio" name="sam_active" value="0" {SAM_ACTIVE_NO} /> {L_NO}</label></dd>
+		</dl>
+		<dl>
+			<dt><label>{L_SAM_CONFIG_ROWS}</label></dt>
+			<dd><input type="text" class="inputbox autowidth" name="sam_rows" value="{SAM_ROWS}" size="3" maxlength="3" /></dd>
+		</dl>
+		<dl>
+			<dt><label>{L_SAM_CONFIG_COLS}</label></dt>
+			<dd><input type="text" class="inputbox autowidth" name="sam_cols" value="{SAM_COLS}" size="3" maxlength="3" /></dd>
+		</dl>
+		<dl>
+			<dt><label>{L_SAM_CONFIG_PERM_UPLOAD}</label></dt>
+			<dd>{SAM_PERM_UPLOAD}</dd>
+		</dl>
+		<dl>
+			<dt><label>{L_SAM_CONFIG_PERM_RATE}</label></dt>
+			<dd>{SAM_PERM_RATE}</dd>
+		</dl>
+		<dl>
+			<dt><label>{L_SAM_CONFIG_RATE_MAX}</label></dt>
+			<dd><input type="text" class="inputbox autowidth" name="sam_rate_max" value="{SAM_RATE_MAX}" size="3" maxlength="3" /></dd>
+		</dl>
+		<dl>
+			<dt><label>{L_SAM_CONFIG_FILE_SIZE_MAX}</label></dt>
+			<dd><input type="text" class="inputbox autowidth" name="sam_file_size_max" value="{SAM_FILE_SIZE_MAX}" size="5" maxlength="5" /> {SAM_FILE_SIZE_MS}</dd>
+		</dl>
+		<dl>
+			<dt><label>{L_SAM_CONFIG_APPROVE}</label></dt>
+			<dd><label><input type="radio" class="radio" name="sam_approve" value="1" {SAM_APPROVE_YES} /> {L_YES}</label><label><input type="radio" class="radio" name="sam_approve" value="0" {SAM_APPROVE_NO} /> {L_NO}</label></dd>
+		</dl>
+
+	</fieldset>
+
+	<fieldset>
+
+		<dl>
+			<dt><label>{L_SAM_WELCOME_MSG}</label></dt>
+			<dd><textarea name="welcome_msg" cols="40" rows="5" class="inputbox autowidth">{SAM_WELCOME_MSG}</textarea></dd>
+		</dl>
+		<dl>
+			<dt><label>{L_SAM_GENERAL_USE}</label></dt>
+			<dd><textarea name="general_use" cols="40" rows="5" class="inputbox autowidth">{SAM_GENERAL_USE}</textarea></dd>
+		</dl>
+
+	</fieldset>
+
+	<fieldset class="quick">
+		<input class="button1" type="submit" id="submit2" name="submit" value="{L_SUBMIT}" />&nbsp;
+		<input class="button2" type="reset" id="reset2" name="reset" value="{L_RESET}" />
+		{S_FORM_TOKEN}
+	</fieldset>
+
+</form>
+
+<br />

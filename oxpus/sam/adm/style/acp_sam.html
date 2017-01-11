@@ -1,0 +1,34 @@
+<!-- INCLUDE overall_header.html -->
+
+<a name="maincontent"></a>
+
+<h1>{L_ACP_SAM} &bull; 
+	<!-- IF SAM_ACP_PAGE == 'overview' -->
+	{L_ACP_SAM_OVERVIEW}
+	<!-- ELSEIF SAM_ACP_PAGE == 'config' -->
+	{L_ACP_SAM_CONFIG}
+	<!-- ELSE -->
+	{L_ACP_SAM_CATS}
+	<!-- ENDIF -->
+</h1>
+
+<!-- IF U_BACK --><a href="{U_BACK}" style="float: {S_CONTENT_FLOW_END};">&laquo; {L_BACK}</a><!-- ENDIF -->
+
+<p>
+	<!-- IF SAM_ACP_PAGE == 'overview' -->
+	{L_ACP_SAM_OVERVIEW_EXPLAIN}
+	<!-- ELSEIF SAM_ACP_PAGE == 'config' -->
+	{L_ACP_SAM_CONFIG_EXPLAIN}
+	<!-- ELSE -->
+	{L_ACP_SAM_CATS_EXPLAIN}
+	<!-- ENDIF -->
+</p>
+
+<br />
+
+<!-- IF SAM_ACP_PAGE == 'config' --><!-- INCLUDE sam_config.html --><!-- ENDIF -->
+<!-- IF SAM_ACP_PAGE == 'cats' --><!-- INCLUDE sam_cats.html --><!-- ENDIF -->
+
+<div class="small" style="text-align: center;">{L_ACP_SAM} {SAM_RELEASE} &copy; OXPUS</div>
+
+<!-- INCLUDE overall_footer.html -->

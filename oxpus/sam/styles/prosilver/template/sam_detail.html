@@ -1,0 +1,29 @@
+<!-- INCLUDE simple_header.html -->
+
+<script type="text/javascript">
+// <![CDATA[
+var sam_ajax_url = '{U_SAM_AJAX}';
+// ]]>
+</script>
+<script type="text/javascript" src="{SAM_EXT_PATH}includes/js/ajax_sam.js"></script>
+
+<div class="panel">
+
+	<dl class="panel bg2">
+		<dd style="text-align: center;">
+			<div><strong>{TITLE}</strong></div>
+			<hr /><img src="{FILENAME}" title="{TITLE}" alt="{smiliesata.TITLE}" /><hr />
+			<div><label>{L_SAM_USER_RATING}</label> <div id="rating">{RATING}</div></div>
+			<div class="small">{L_SAM_UPLOAD_USER} {USER}</div>
+			<div class="small">{L_SAM_UPLOAD_TIME} {TIME}</div>
+			<hr />
+			<div>{L_SAM_BBCODE} <input type="text" value="{BBCODE}" class="inputbox autowidth" size="25" onclick="this.select();" /></div>
+		</dd>
+	</dl>
+
+</div>
+
+<div class="clear"></div>
+<div class="copyright">{L_SAM_TITLE} &copy; OXPUS</div>
+
+<!-- INCLUDE simple_footer.html -->

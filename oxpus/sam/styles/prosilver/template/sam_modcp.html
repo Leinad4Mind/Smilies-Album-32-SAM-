@@ -1,0 +1,94 @@
+<!-- INCLUDE overall_header.html -->
+
+<script type="text/javascript">
+	function select_switch(status)
+	{
+		var doc_length = {SMILIES_PER_PAGE};
+		for (i = 0; i < doc_length; i++)
+		{
+			smilie = document.getElementById('sam_id_' + i);
+			if (status)
+			{
+				smilie.checked = 'checked';
+			}
+			else
+			{
+				smilie.checked = '';
+			}
+		}
+	}
+</script>
+
+<form method="post" id="sam_modcp" action="{S_FORM_ACTION}" >
+
+<h2>{L_SAM_MODCP}</h2>
+
+<h3>{CAT_TITLE}</h3>
+
+<div><br /></div>
+
+<div class="forabg">
+
+	<ul class="topiclist">
+		<li class="header">
+			<dl>
+				<dt>{L_SAM_SMILIE}</dt>
+				<dd class="posts">{L_SAM_STATUS}</dd>
+				<dd class="options">&nbsp;</dd>
+				<dd class="time">{L_OPTIONS}</dd>
+			</dl>
+		</li>
+	</ul>
+	<ul class="topiclist forums">
+	<!-- BEGIN smilie_row -->
+		<li class="row<!-- IF smilie_row.S_ROW_COUNT is even --> bg1<!-- ELSE --> bg2<!-- ENDIF -->">
+			<dl>
+				<dt><a href="{smilie_row.U_SMILIE}" class="forumtitle" onclick="window.open('{smilie_row.U_SMILIE}', '_blank', 'height=400,width=300,resizable=no,menubar=no,toolbar=no'); return false;"><img src="{smilie_row.I_SAM_FILE}" alt="{smilie_row.SAM_TITLE}" title="{smilie_row.SAM_TITLE}" /></a></dt>
+				<dd class="posts"><!-- IF smilie_row.SAM_APPROVE -->{L_YES}<!-- ELSE -->{L_NO}<!-- ENDIF --></dd>
+				<dd class="options">&nbsp;<input type="checkbox" class="permissions-checkbox" id="sam_id_{smilie_row.S_ROW_COUNT}" name="sam_id[]" value="{smilie_row.SAM_ID}" />&nbsp;</dd>
+				<dd class="time">&nbsp;<a href="{smilie_row.U_DELETE}">{L_DELETE}</a></dd>
+ 			</dl>
+ 		</li>
+	<!-- END smilie_row -->
+	</ul>
+
+	{S_HIDDEN_FIELDS}
+
+</div>
+
+<!-- IF .pagination or TOTAL_SMILIES -->
+	<div class="pagination">
+		{TOTAL_SMILIES}
+		<!-- IF .pagination -->
+			<!-- INCLUDE pagination.html -->
+		<!-- ELSE -->
+			&bull; {PAGE_NUMBER}
+		<!-- ENDIF -->
+	</div>
+<!-- ENDIF -->
+
+<div class="panel">
+	
+	<h3>{L_SAM_SELECTED}</h3>
+
+	<fieldset class="submit-buttons">
+		<!-- IF S_CAT_SELECT -->
+		<input type="submit" name="move" value="{L_SAM_MOVE}" class="button2" />&nbsp;<select name="new_cat_id">{S_CAT_SELECT}</select>&nbsp;
+		<!-- ENDIF -->
+		<input type="submit" name="lock" value="{L_SAM_LOCK}" class="button2" />&nbsp;
+		<input type="submit" name="approve" value="{L_SAM_APPROVE}" class="button2" />
+	</fieldset>
+
+</div>
+
+</form>
+
+<ul class="linklist">
+	<li class="rightside">
+		<span><a href="javascript:select_switch(true);">{L_SAM_MARK_ALL}</a> :: <a href="javascript:select_switch(false);">{L_SAM_UNMARK}</a></span>
+	</li>
+</ul>
+
+<br />
+
+<!-- INCLUDE sam_footer.html -->
