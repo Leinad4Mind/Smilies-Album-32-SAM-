@@ -135,7 +135,7 @@ class main_listener implements EventSubscriberInterface
 			include_once($ext_path . 'includes/helpers/constants.' . $this->php_ext);
 
 			$this->template->assign_vars(array(
-				'U_SAM_NAVI' => $this->helper->route('sam_controller'),
+				'U_SAM_NAVI' => $this->helper->route('oxpus_sam_controller'),
 			));
 		}
 	}
@@ -145,7 +145,7 @@ class main_listener implements EventSubscriberInterface
 		if (strpos($event['row']['session_page'], '/sam') !== false)
 		{
 			$event['location'] = $this->language->lang('SAM_TITLE');
-			$event['location_url'] = $this->helper->route('sam_controller');
+			$event['location_url'] = $this->helper->route('oxpus_sam_controller');
 		}
 	}
 
@@ -184,7 +184,7 @@ class main_listener implements EventSubscriberInterface
 	public function post_template_data($event)
 	{
 		$this->template->assign_vars(array(
-			'U_SAM_POPUP' => $this->helper->route('sam_controller', array('mode' => 'popup')),
+			'U_SAM_POPUP' => $this->helper->route('oxpus_sam_controller', array('mode' => 'popup')),
 		));
 	}
 }

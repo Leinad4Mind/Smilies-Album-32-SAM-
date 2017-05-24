@@ -127,19 +127,19 @@ if ($this->request->variable('submit', ''))
 	
 			$approve_message = ($approve) ? '' : '<br />' . $this->language->lang('SAM_MUST_BE_APPROVED');
 		
-			$message = $this->language->lang('SAM_ADDED') . $approve_message . '<br /><br />' . $this->language->lang('CLICK_RETURN_SAM', '<a href="' . $this->helper->route('sam_controller', array('cat_id' => $cat_id)) . '">', '</a>');
-			meta_refresh(3, $this->helper->route('sam_controller', array('cat_id' => $cat_id)));
+			$message = $this->language->lang('SAM_ADDED') . $approve_message . '<br /><br />' . $this->language->lang('CLICK_RETURN_SAM', '<a href="' . $this->helper->route('oxpus_sam_controller', array('cat_id' => $cat_id)) . '">', '</a>');
+			meta_refresh(3, $this->helper->route('oxpus_sam_controller', array('cat_id' => $cat_id)));
 		}
 		else
 		{
 			$file->remove();
-			$message = $this->language->lang('SAM_NOT_ADDED') . '<br /><br />' . $this->language->lang('CLICK_RETURN_SAM', '<a href="' . $this->helper->route('sam_controller', array('cat_id' => $cat_id)) . '">', '</a>');
+			$message = $this->language->lang('SAM_NOT_ADDED') . '<br /><br />' . $this->language->lang('CLICK_RETURN_SAM', '<a href="' . $this->helper->route('oxpus_sam_controller', array('cat_id' => $cat_id)) . '">', '</a>');
 		}
 	}
 	else
 	{
 		$file->remove();
-		$message = $this->language->lang('SAM_NOT_ADDED') . '<br /><br />' . $this->language->lang('CLICK_RETURN_SAM', '<a href="' . $this->helper->route('sam_controller', array('cat_id' => $cat_id)) . '">', '</a>');
+		$message = $this->language->lang('SAM_NOT_ADDED') . '<br /><br />' . $this->language->lang('CLICK_RETURN_SAM', '<a href="' . $this->helper->route('oxpus_sam_controller', array('cat_id' => $cat_id)) . '">', '</a>');
 	}
 
 	trigger_error($message);
@@ -157,5 +157,5 @@ $this->template->assign_vars(array(
 	'SAM_ADD_MODE'		=> true,
 	'SAM_TITLE'			=> '',
 	'SAM_CAT'			=> $sam->sam_cat_select(0, 0, $cat_id),
-	'S_FORM_ACTION'		=> $this->helper->route('sam_controller', array('mode' => 'add')),
+	'S_FORM_ACTION'		=> $this->helper->route('oxpus_sam_controller', array('mode' => 'add')),
 ));

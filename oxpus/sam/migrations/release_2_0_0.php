@@ -74,7 +74,7 @@ class release_2_0_0 extends \phpbb\db\migration\migration
 			$this->db->sql_return_on_error(true);
 			$result = $this->db->sql_query('SELECT * FROM ' . $this->table_prefix . 'smilies_page');
 			$this->db->sql_return_on_error(false);
-	
+
 			$smilies = false;
 
 			// Old table found? Okay, now fetch the smilies...
@@ -95,7 +95,7 @@ class release_2_0_0 extends \phpbb\db\migration\migration
 					$this->db->sql_query($sql_insert);
 				}
 
-				// At least one smiley was found to be transferd. Yeah!!! 
+				// At least one smiley was found to be transferd. Yeah!!!
 				$smilies = true;
 
 				$this->db->sql_freeresult($result);
@@ -105,7 +105,7 @@ class release_2_0_0 extends \phpbb\db\migration\migration
 			$this->db->sql_return_on_error(true);
 			$result = $this->db->sql_query('SELECT * FROM ' . $this->table_prefix . 'smilies_config');
 			$this->db->sql_return_on_error(false);
-	
+
 			if ($result)
 			{
 				while ($row = $this->db->sql_fetchrow($result))
@@ -129,7 +129,7 @@ class release_2_0_0 extends \phpbb\db\migration\migration
 					// Update the new config
 					if ($config_name)
 					{
-						set_config($config_name, $row['config_value']);
+						$this->config->set($config_name, $row['config_value']);
 					}
 				}
 
@@ -143,7 +143,7 @@ class release_2_0_0 extends \phpbb\db\migration\migration
 				$this->db->sql_return_on_error(true);
 				$result = $this->db->sql_query('SELECT * FROM ' . $this->table_prefix . 'smilies_rate');
 				$this->db->sql_return_on_error(false);
-		
+
 				if ($result)
 				{
 					while ($row = $this->db->sql_fetchrow($result))
@@ -156,10 +156,10 @@ class release_2_0_0 extends \phpbb\db\migration\migration
 						));
 						$this->db->sql_query($sql_insert);
 					}
-	
+
 					$this->db->sql_freeresult($result);
 				}
-	
+
 				// Okay, all smilies data are transfered. So now we have to insert a category to be able to display them.
 				$sql_insert = 'INSERT INTO ' . $this->table_prefix . 'sam_cats' . ' ' . array('INSERT', array(
 					'cat_title'		=> 'Transfer from Smilies Page',
@@ -167,8 +167,8 @@ class release_2_0_0 extends \phpbb\db\migration\migration
 					'cat_order'		=> 0,
 				));
 				$this->db->sql_query($sql_insert);
-	
-				// So we have a cat id... 
+
+				// So we have a cat id...
 				$this->db->sql_query($sql_insert);
 				$cat_id = $this->db->sql_nextid();
 

@@ -194,7 +194,7 @@ class main
 		for ($i = 0; $i < sizeof($nav_string['link']); $i++)
 		{
 			$this->template->assign_block_vars('navlinks', array(
-				'U_VIEW_FORUM'	=> $this->helper->route('sam_controller', $nav_string['link'][$i]),
+				'U_VIEW_FORUM'	=> $this->helper->route('oxpus_sam_controller', $nav_string['link'][$i]),
 				'FORUM_NAME'	=> $nav_string['name'][$i],
 			));
 		}
@@ -297,7 +297,7 @@ class main
 
 				if (!$this->auth->acl_get('a_'))
 				{
-					redirect($this->helper->route('sam_controller', array('cat_id' => $cat_id)));
+					redirect($this->helper->route('oxpus_sam_controller', array('cat_id' => $cat_id)));
 				}
 		
 				$new_cat_id = $this->request->variable('new_cat_id', 0);
@@ -376,8 +376,8 @@ class main
 							'CAT_TITLE'		=> $cat_title,
 							'CAT_COUNT'		=> $index[$key]['total'],
 							'CAT_ID'		=> $index[$key]['cat_id'],
-							'U_CAT'			=> $this->helper->route('sam_controller', array('cat_id' => $index[$key]['cat_id'])),
-							'U_CAT_POPUP'	=> $this->helper->route('sam_controller', array('cat_id' => $index[$key]['cat_id'], 'mode' => 'popup')),
+							'U_CAT'			=> $this->helper->route('oxpus_sam_controller', array('cat_id' => $index[$key]['cat_id'])),
+							'U_CAT_POPUP'	=> $this->helper->route('oxpus_sam_controller', array('cat_id' => $index[$key]['cat_id'], 'mode' => 'popup')),
 						));
 		
 						if ($index[$key]['cat_id'] == $cat_id)
@@ -393,7 +393,7 @@ class main
 										'CAT_SIGN'	=> '&nbsp;&nbsp;&nbsp;&bull;&nbsp;',
 										'CAT_TITLE'	=> $cat_title,
 										'CAT_COUNT'	=> $index2[$key2]['total'],
-										'U_CAT'		=> $this->helper->route('sam_controller', array('cat_id' => $index2[$key2]['cat_id'])),
+										'U_CAT'		=> $this->helper->route('oxpus_sam_controller', array('cat_id' => $index2[$key2]['cat_id'])),
 									));
 								}
 							}
@@ -483,8 +483,8 @@ class main
 							'TITLE'		=> censor_text($row['title']),
 							'CAT_TITLE'	=> ($cat_id) ? '' : $row['cat_title'],
 							'RATING'	=> $rating,
-							'U_SMILIE'	=> $this->helper->route('sam_controller', array('mode' => 'detail', 'sam_id' => $row['id'])),
-							'U_CAT'		=> ($cat_id) ? '' : $this->helper->route('sam_controller', array('cat_id' => $row['cat_id'])),
+							'U_SMILIE'	=> $this->helper->route('oxpus_sam_controller', array('mode' => 'detail', 'sam_id' => $row['id'])),
+							'U_CAT'		=> ($cat_id) ? '' : $this->helper->route('oxpus_sam_controller', array('cat_id' => $row['cat_id'])),
 							'U_SAM_POST'	=> '[sam]' . $row['id'] . '[/sam]',
 						));
 					
@@ -511,8 +511,8 @@ class main
 			$pagination->generate_template_pagination(
 				array(
 					'routes' => array(
-						'sam_controller',
-						'sam_controller',
+						'oxpus_sam_controller',
+						'oxpus_sam_controller',
 					),
 					'params' => array('mode' => 'modcp', 'cat_id' => $cat_id),
 				), 'pagination', 'start', $total_smilies, $smilies_per_page, $page_start);
@@ -529,10 +529,10 @@ class main
 			'S_SAM_MODCP'	=> ($this->auth->acl_get('a_') && $this->user->data['is_registered'] && !$this->user->data['user_perm_from'] && $cat_id && $index[$cat_id]['total']) ? true : false,
 			'S_SAM_MODE'	=> $mode,
 			'S_CAT_SELECT'	=> $s_cat_select,
-			'U_SAM_ADD'		=> ($perm_upload) ? $this->helper->route('sam_controller', array('mode' => 'add')) : '',
-			'U_SAM_BASIC'	=> $this->helper->route('sam_controller', array('mode' => 'main')),
-			'U_SAM_MODCP'	=> $this->helper->route('sam_controller', array('mode' => 'modcp', 'cat_id' => $cat_id)),
-			'U_SAM_AJAX'	=> $this->helper->route('sam_controller', array('mode' => 'ajax')),
+			'U_SAM_ADD'		=> ($perm_upload) ? $this->helper->route('oxpus_sam_controller', array('mode' => 'add')) : '',
+			'U_SAM_BASIC'	=> $this->helper->route('oxpus_sam_controller', array('mode' => 'main')),
+			'U_SAM_MODCP'	=> $this->helper->route('oxpus_sam_controller', array('mode' => 'modcp', 'cat_id' => $cat_id)),
+			'U_SAM_AJAX'	=> $this->helper->route('oxpus_sam_controller', array('mode' => 'ajax')),
 		));
 		
 		include($ext_path . 'includes/modules/sam_footer.' . $this->php_ext);

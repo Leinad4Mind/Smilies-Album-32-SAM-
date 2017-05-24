@@ -55,7 +55,7 @@ if ($action == 'delete' && $sam_id)
 			WHERE pic_id = ' . (int) $sam_id;
 		$this->db->sql_query($sql);
 
-		redirect($this->helper->route('sam_controller', array('mode' => $mode, 'cat_id' => $cat_id)));
+		redirect($this->helper->route('oxpus_sam_controller', array('mode' => $mode, 'cat_id' => $cat_id)));
 	}
 	else
 	{
@@ -109,7 +109,7 @@ if ($action == 'manage' && $cat_id)
 
 	if (!$total_smilies)
 	{
-		redirect($this->helper->route('sam_controller'));
+		redirect($this->helper->route('oxpus_sam_controller'));
 	}
 
 	page_header($this->language->lang('SAM_TITLE'));
@@ -134,10 +134,10 @@ if ($action == 'manage' && $cat_id)
 			'SAM_TITLE'		=> $sam_title,
 			'SAM_APPROVE'	=> ($sam_approve) ? true : false,
 
-			'I_SAM_FILE'	=> $this->helper->route('sam_controller', array('mode' => 'smilie', 'sam_id' => $sam_id)),
+			'I_SAM_FILE'	=> $this->helper->route('oxpus_sam_controller', array('mode' => 'smilie', 'sam_id' => $sam_id)),
 
-			'U_SMILIE'		=> $this->helper->route('sam_controller', array('mode' => 'detail', 'sam_id' => $row['id'])),
-			'U_DELETE'		=> $this->helper->route('sam_controller', array('mode' => 'modcp', 'action' => 'delete', 'cat_id' => $cat_id, 'sam_id' => $sam_id)),
+			'U_SMILIE'		=> $this->helper->route('oxpus_sam_controller', array('mode' => 'detail', 'sam_id' => $row['id'])),
+			'U_DELETE'		=> $this->helper->route('oxpus_sam_controller', array('mode' => 'modcp', 'action' => 'delete', 'cat_id' => $cat_id, 'sam_id' => $sam_id)),
 		));
 	}
 
@@ -162,8 +162,8 @@ if ($action == 'manage' && $cat_id)
 		$pagination->generate_template_pagination(
 			array(
 				'routes' => array(
-					'sam_controller',
-					'sam_controller',
+					'oxpus_sam_controller',
+					'oxpus_sam_controller',
 				),
 				'params' => array('mode' => 'modcp', 'cat_id' => $cat_id),
 			), 'pagination', 'start', $index[$cat_id]['total'], $cur_number_smilies, $page_start);
@@ -184,11 +184,11 @@ if ($action == 'manage' && $cat_id)
 		'SMILIES_PER_PAGE'	=> $cur_number_smilies,
 
 		'S_CAT_SELECT'		=> $s_cat_select,
-		'S_FORM_ACTION'		=> $this->helper->route('sam_controller', array('mode' => 'modcp')),
+		'S_FORM_ACTION'		=> $this->helper->route('oxpus_sam_controller', array('mode' => 'modcp')),
 		'S_HIDDEN_FIELDS'	=> build_hidden_fields($s_hidden_fields))
 	);
 }
 else
 {
-	redirect($this->helper->route('sam_controller'));
+	redirect($this->helper->route('oxpus_sam_controller'));
 }

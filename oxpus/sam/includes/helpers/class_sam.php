@@ -10,6 +10,14 @@
 
 namespace oxpus\sam\includes\helpers;
 
+/**
+* @ignore
+*/
+if (!defined('IN_PHPBB'))
+{
+	exit;
+}
+
 class sam
 {
 	var $sam_index = array();
@@ -117,7 +125,7 @@ class sam
 					{
 						$seperator .= ($value['cat_parent'] != 0) ? '&nbsp;|__&nbsp;' : '';
 					}
-	
+
 					$tree_dl[$cat_id] = $value;
 					if ($seperator)
 					{
@@ -184,7 +192,7 @@ class sam
 			{
 				$ajax = 'onclick="AJAXSAMVote(' . $sam_id . ', ' . $j . '); return false;"';
 				$rate_image .= ($j <= $rate_points ) ? '<a href="#" ' . $ajax . '><img src="' . $style_path . '/sam_yes.png" alt="' . $j . $points_text . '" title="' . $j . $points_text . '" /></a>' : '<a href="#" ' . $ajax . '><img src="' . $style_path . '/sam_no.png" alt="' . $j . $points_text . '" title="' . $j . $points_text . '" /></a>';
-				
+
 			}
 			else
 			{
@@ -214,9 +222,9 @@ class sam
 				if ($cat_id != $no_cat)
 				{
 					$cat_title = $this->sam_index[$cat_id]['cat_title'];
-	
+
 					$seperator = '';
-	
+
 					if ($this->sam_index[$cat_id]['cat_parent'] != 0)
 					{
 						for ($i = 0; $i < $level; $i++)
@@ -225,9 +233,9 @@ class sam
 						}
 						$seperator .= '__&nbsp;';
 					}
-	
+
 					$status = ($cat_id == $select_cat) ? 'selected="selected"' : '';
-	
+
 					$catlist .= '<option value="' . $cat_id . '" ' . $status . '>' . $seperator . $cat_title . '</option>';
 				}
 
