@@ -128,7 +128,7 @@ class main
 		$start = $page_start;
 
 		$perm_upload = false;
-		
+
 		switch ($this->config['sam_perm_upload'])
 		{
 			case '0':
@@ -143,7 +143,7 @@ class main
 		}
 
 		$perm_rate = false;
-		
+
 		switch ($this->config['sam_perm_rate'])
 		{
 			case '0':
@@ -161,12 +161,12 @@ class main
 		{
 			$mode = 'main';
 		}
-		
+
 		if ($mode == 'modcp' && !$this->auth->acl_get('a_'))
 		{
 			$mode = 'main';
 		}
-		
+
 		if ($mode == 'ajax' && !$perm_rate)
 		{
 			$mode = 'main';
@@ -183,7 +183,7 @@ class main
 		else if ($cat_id)
 		{
 			$nav_tmp = $sam->sam_nav($cat_id);
-		
+
 			for ($i = sizeof($nav_tmp) - 1; $i >= 0; $i--)
 			{
 				$nav_string['link'][] = $nav_tmp[$i]['link'];
@@ -206,16 +206,16 @@ class main
 			case 'ajax':
 
 				include($ext_path . 'includes/modules/sam_ajax.' . $this->php_ext);
-		
+
 			break;
-		
+
 			case 'smilie':
 				$sql = 'SELECT filename FROM ' . SAM_DATA_TABLE . '
 					WHERE id = ' . (int) $sam_id;
 				$result = $this->db->sql_query($sql);
 				$row = $this->db->sql_fetchrow($result);
 				$this->db->sql_freeresult($result);
-		
+
 				$file_path = $ext_path . 'includes/uploads/' . $row['filename'];
 				$browser = $this->user->data['session_browser'];
 
@@ -226,12 +226,12 @@ class main
 
 					header('Pragma: public');
 					header('Content-Type: ' . $image_type);
-			
+
 					if (strpos(strtolower($browser), 'msie') !== false && strpos(strtolower($browser), 'msie 8.0') === false)
-			
+
 					{
 						header('Content-Disposition: attachment; ' . $row['filename']);
-			
+
 						if (strpos(strtolower($browser), 'msie 6.0') !== false)
 						{
 							header('Expires: -1');
@@ -247,67 +247,40 @@ class main
 						header('Expires: ' . gmdate('D, d M Y H:i:s \G\M\T', time() + 31536000));
 					}
 
-					$image = false;
-
-					if ($image_type == 'image/jpg')
-					{
-						$image = imagecreatefromjpeg($file_path);
-						imagealphablending($image, false);
-						imagesavealpha($image, true);
-						imagejpeg($image);
-					}
-					else if ($image_type == 'image/png')
-					{
-						$image = imagecreatefrompng($file_path);
-						imagealphablending($image, false);
-						imagesavealpha($image, true);
-						imagepng($image);
-					}
-					else if ($image_type == 'image/gif')
-					{
-						if (function_exists('imagecreatefromgif'))
-						{
-							$image = imagecreatefromgif($file_path);
-							imagealphablending($image, false);
-							imagesavealpha($image, true);
-							imagegif($image);
-						}
-					}
-
-					@imagedestroy($image);
+					readfile($file_path);
 					flush();
 				}
 				else
 				{
 					send_status_line(404, 'Not Found');
 				}
-		
+
 				garbage_collection();
 				exit_handler();
-		
+
 			break;
-		
+
 			case 'add':
 
 				include($ext_path . 'includes/modules/sam_upload.' . $this->php_ext);
-				
+
 			break;
-		
+
 			case 'modcp':
 
 				if (!$this->auth->acl_get('a_'))
 				{
 					redirect($this->helper->route('oxpus_sam_controller', array('cat_id' => $cat_id)));
 				}
-		
+
 				$new_cat_id = $this->request->variable('new_cat_id', 0);
-		
+
 				include($ext_path . 'includes/modules/sam_modcp.' . $this->php_ext);
 
 			break;
-		
+
 			case 'detail':
-		
+
 				$sql = 'SELECT d.*, u.username AS user_name, u.user_colour, AVG(r.points) AS rating
 					FROM ' . SAM_DATA_TABLE . ' d
 					LEFT JOIN ' . USERS_TABLE . ' u ON u.user_id = d.user_id
@@ -317,10 +290,10 @@ class main
 				$result = $this->db->sql_query($sql);
 				$row = $this->db->sql_fetchrow($result);
 				$this->db->sql_freeresult($result);
-		
+
 				$user_sam		= $row['username'];
 				$user_forum		= $row['user_name'];
-				
+
 				if ($user_forum)
 				{
 					$sam_user = $user_forum;
@@ -333,11 +306,11 @@ class main
 				{
 					$sam_user = $this->language->lang('GUEST');
 				}
-		
+
 				$rating = $sam->rating_img($ext_path_web, $row['rating'], (($perm_rate) ? true : false), $row['id']);
-		
+
 				$this->template->set_filenames(array('body' => 'sam_detail.html'));
-		
+
 				$this->template->assign_vars(array(
 					'FILENAME'		=> $ext_path_web . 'includes/uploads/' . $row['filename'],
 					'TITLE'			=> censor_text($row['title']),
@@ -346,12 +319,12 @@ class main
 					'TIME'			=> $this->user->format_date($row['time']),
 					'BBCODE'		=> '[sam]' . $row['id'] . '[/sam]',
 				));
-		
+
 			break;
-		
+
 			case 'popup':
 			default:
-			
+
 				if ($mode == 'popup')
 				{
 					$this->template->set_filenames(array('body' => 'sam_popup.html'));
@@ -363,13 +336,13 @@ class main
 
 				$index_parent = ($cat_id) ? $index[$cat_id]['cat_parent'] : 0;
 				$index2 = $index;
-				
+
 				foreach ($index as $key => $value)
 				{
 					if ($index[$key]['cat_parent'] == $index_parent)
 					{
 						$cat_title = str_replace('&nbsp;|__&nbsp;', '', $index[$key]['cat_title']);
-		
+
 						$this->template->assign_block_vars('sam_cats', array(
 							'CAT_SEL'		=> ($index[$key]['cat_id'] == $cat_id) ? true : false,
 							'CAT_SIGN'		=> '&bull;&nbsp;',
@@ -379,7 +352,7 @@ class main
 							'U_CAT'			=> $this->helper->route('oxpus_sam_controller', array('cat_id' => $index[$key]['cat_id'])),
 							'U_CAT_POPUP'	=> $this->helper->route('oxpus_sam_controller', array('cat_id' => $index[$key]['cat_id'], 'mode' => 'popup')),
 						));
-		
+
 						if ($index[$key]['cat_id'] == $cat_id)
 						{
 							foreach ($index2 as $key2 => $value2)
@@ -387,7 +360,7 @@ class main
 								if ($index2[$key2]['cat_parent'] == $index[$key]['cat_id'])
 								{
 									$cat_title = str_replace('&nbsp;|__&nbsp;', '', $index2[$key2]['cat_title']);
-		
+
 									$this->template->assign_block_vars('sam_cats', array(
 										'CAT_SEL'	=> ($index2[$key2]['cat_id'] == $cat_id) ? true : false,
 										'CAT_SIGN'	=> '&nbsp;&nbsp;&nbsp;&bull;&nbsp;',
@@ -400,7 +373,7 @@ class main
 						}
 					}
 				}
-			
+
 				if (sizeof($index))
 				{
 					foreach ($index as $key => $value)
@@ -427,16 +400,16 @@ class main
 				{
 					$sam_key = 'WELCOME_MSG';
 				}
-		
+
 				$sql = 'SELECT * FROM ' . SAM_TEXT_TABLE . "
 					WHERE sam_key = '" . $this->db->sql_escape($sam_key) . "'";
 				$result = $this->db->sql_query($sql);
 				$row = $this->db->sql_fetchrow($result);
 				$this->db->sql_freeresult($result);
-				
+
 				$display_text = censor_text($row['sam_text']);
 				$display_text = generate_text_for_display($display_text, $row['sam_uid'], $row['sam_bitfield'], $row['sam_flags']);
-						 
+
 				if (!$total_smilies)
 				{
 					$this->template->assign_var('S_NO_SMILIES', true);
@@ -445,7 +418,7 @@ class main
 				{
 					$sql_where = '';
 					$sql_order = '';
-		
+
 					if ($cat_id)
 					{
 						$sql_where = ' AND c.cat_id = ' . (int) $cat_id . ' ';
@@ -454,29 +427,29 @@ class main
 					{
 						$sql_order = ' ORDER BY rand() ';
 					}
-	
+
 					$s_cat_select = '<select name="cat_id" onchange="submit(this);"><option value="0">' . $this->language->lang('SAM_ALL') . '</option>';
 					$s_cat_select .= $sam->sam_cat_select(0, 0, $cat_id);
 					$s_cat_select .= '</select>';
-		
+
 					$sam_id_ary = array();
-					
+
 					$sql = 'SELECT d.*, c.cat_title, AVG(r.points) AS rating
 						FROM ' . SAM_CATS_TABLE . ' c,  ' . SAM_DATA_TABLE . ' d
-						LEFT JOIN ' . SAM_RATE_TABLE . ' r ON r.pic_id = d.id 
+						LEFT JOIN ' . SAM_RATE_TABLE . ' r ON r.pic_id = d.id
 						WHERE c.cat_id = d.cat_id
 							AND d.approve = ' . true . $sql_where . '
 						GROUP BY c.cat_title, d.cat_id, d.filename, d.title, d.id ' . $sql_order . '
 						LIMIT ' . (int) $start . ', ' . (int) $smilies_per_page;
 					$result = $this->db->sql_query($sql);
-					
+
 					$column = 1;
 					$row = 1;
-					
+
 					while ($row = $this->db->sql_fetchrow($result))
 					{
 						$rating = $sam->rating_img($ext_path_web, $row['rating']);
-				
+
 						$this->template->assign_block_vars('smilies_data', array(
 							'COLUMN'	=> $column,
 							'FILENAME'	=> $ext_path_web . '/includes/uploads/' . $row['filename'],
@@ -487,9 +460,9 @@ class main
 							'U_CAT'		=> ($cat_id) ? '' : $this->helper->route('oxpus_sam_controller', array('cat_id' => $row['cat_id'])),
 							'U_SAM_POST'	=> '[sam]' . $row['id'] . '[/sam]',
 						));
-					
+
 						$column++;
-					
+
 						if ($column > $this->config['sam_cols'])
 						{
 							$column = 1;
@@ -499,7 +472,7 @@ class main
 
 					$this->db->sql_freeresult($result);
 				}
-		
+
 			break;
 		}
 
@@ -516,7 +489,7 @@ class main
 					),
 					'params' => array('mode' => 'modcp', 'cat_id' => $cat_id),
 				), 'pagination', 'start', $total_smilies, $smilies_per_page, $page_start);
-				
+
 			$this->template->assign_vars(array(
 				'PAGE_NUMBER'      => $pagination->on_page($total_smilies, $smilies_per_page, $page_start),
 				'TOTAL_SMILIES'	   => $this->language->lang('SMILIES_TOTAL', $total_smilies),
@@ -534,9 +507,9 @@ class main
 			'U_SAM_MODCP'	=> $this->helper->route('oxpus_sam_controller', array('mode' => 'modcp', 'cat_id' => $cat_id)),
 			'U_SAM_AJAX'	=> $this->helper->route('oxpus_sam_controller', array('mode' => 'ajax')),
 		));
-		
+
 		include($ext_path . 'includes/modules/sam_footer.' . $this->php_ext);
-		
+
 		page_footer();
 	}
 }
